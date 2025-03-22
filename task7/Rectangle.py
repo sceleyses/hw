@@ -6,7 +6,7 @@ class Rectangle(Figure):
         self.b = b
 
     def dimension(self):
-        return "2d"
+        return "2D"
 
     def perimeter(self):
         return 2 * (self.a + self.b)
@@ -15,7 +15,7 @@ class Rectangle(Figure):
         return self.a * self.b
 
     def volume(self):
-        return self.square()
+        return super().volume()
 
     def __str__(self):
         return (

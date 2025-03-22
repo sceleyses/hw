@@ -2,12 +2,14 @@ from Figure import Figure
 
 class Triangle(Figure):
     def __init__(self, a, b, c):
+        if not (a + b > c and a + c > b and b + c > a):
+            raise ValueError("Invalid triangle sides")
         self.a = a
         self.b = b
         self.c = c
 
     def dimension(self):
-        return "2d"
+        return "2D"
 
     def perimeter(self):
         return self.a + self.b + self.c

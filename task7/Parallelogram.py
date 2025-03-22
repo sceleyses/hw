@@ -1,4 +1,5 @@
 from Figure import Figure
+
 class Parallelogram(Figure):
     def __init__(self, a, b, h):
         self.a = a
