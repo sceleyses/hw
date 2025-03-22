@@ -1,21 +1,22 @@
-
 class Figure:
-    def __init__(self):
+    def dimention(self): #двовимірна чи три-вимірна
+        return "Unknown"
 
-    def dimention():
+    def perimetr(self): #периметер
+        return None
 
-    def perimetr():
+    def square(self): #площа
+        return None
 
-    def square():
+    def squareSurface(self): #площа бічної фігури
+        return None
 
-    def squareSurface():
+    def squareBase(self): #площа основи
+        return None
 
-    def squareBase():
+    def height(self): #висота
+        return None
 
-    def height():
-
-    def volume():
-
-    def __str__(self):
-
+    def volume(self): #для плоскої фігури – площу, для об’ємної – відповідно об’єм
+        return 0.0
 
