@@ -1,5 +1,6 @@
+from Figure import Figure
 import math
-class Circle:
+class Circle(Figure):
     def __init__(self, r):
         self.r = r
 

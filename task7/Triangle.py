@@ -1,5 +1,6 @@
+from Figure import Figure
 
-class Triangle:
+class Triangle(Figure):
     def __init__(self, a, b, c):
         self.a = a
         self.b = b

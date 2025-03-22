@@ -1,4 +1,6 @@
-class Trapeze:
+from Figure import Figure
+
+class Trapeze(Figure):
 
     def __init__(self, a, b, c, d):
         self.a = a

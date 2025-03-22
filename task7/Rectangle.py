@@ -1,4 +1,6 @@
-class Rectangle:
+from Figure import Figure
+
+class Rectangle(Figure):
     def __init__(self, a, b):
         self.a = a
         self.b = b
