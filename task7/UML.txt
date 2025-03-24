@@ -1,0 +1,103 @@
+class Figure {
+  + dimension(): String
+  + perimeter(): float
+  + square(): float
+  + squareSurface(): float
+  + squareBase(): float
+  + height(): float
+  + volume(): float
+}
+
+class Triangle {
+  - a: float
+  - b: float
+  - c: float
+  + perimeter(): float
+  + square(): float
+}
+
+class Rectangle {
+  - width: float
+  - height: float
+  + perimeter(): float
+  + square(): float
+}
+
+class Trapeze {
+  - a: float
+  - b: float
+  - c: float
+  - d: float
+  - height: float
+  + perimeter(): float
+  + square(): float
+}
+
+class Parallelogram {
+  - base: float
+  - side: float
+  - height: float
+  + perimeter(): float
+  + square(): float
+}
+
+class Circle {
+  - radius: float
+  + perimeter(): float
+  + square(): float
+}
+
+class Ball {
+  - radius: float
+  + squareSurface(): float
+  + volume(): float
+}
+
+class TriangularPyramid {
+  - base_side: float
+  - height: float
+  + volume(): float
+}
+
+class TriangularPrism {
+  - a: float
+  - b: float
+  - c: float
+  - height: float
+  + squareSurface(): float
+  + volume(): float
+}
+
+class QuadrangularPyramid {
+  - base_width: float
+  - base_height: float
+  - pyramid_height: float
+  + volume(): float
+}
+
+class RectangularParallelepiped {
+  - length: float
+  - width: float
+  - height: float
+  + squareSurface(): float
+  + volume(): float
+}
+
+class Cone {
+  - radius: float
+  - height: float
+  + squareSurface(): float
+  + volume(): float
+}
+
+Figure <|-- Triangle
+Figure <|-- Rectangle
+Figure <|-- Trapeze
+Figure <|-- Parallelogram
+Figure <|-- Circle
+Figure <|-- Ball
+Triangle <|-- TriangularPyramid
+Triangle <|-- TriangularPrism
+Rectangle <|-- QuadrangularPyramid
+Rectangle <|-- RectangularParallelepiped
+Circle <|-- Cone
