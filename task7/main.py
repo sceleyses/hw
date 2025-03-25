@@ -66,8 +66,7 @@ def WriteFile(file_name, figures):
         max_figure = max(valid_figures, key=lambda fig: fig.volume())
 
         f.write(f"Type: {max_figure.__class__.__name__}\n")
-        f.write(f"Parameters: {vars(max_figure)}\n")
-        f.write(f"Measure: {max_figure.volume():.2f}\n")
+        f.write(f"{max_figure}")
 
 
 figures = ProcessFigures("input01.txt")

@@ -1,0 +1,2 @@
+Type: Ball
+Ball(r = 25.0), Dimension: 3D, Perimeter: None, Square: None, SquareSurface: 7.9e+03, SqureBase: None, Heigt: None, Volume: 65449.85
