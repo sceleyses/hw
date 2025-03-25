@@ -10,7 +10,7 @@ class Circle(Figure):
     def perimeter(self):
         return 2 * math.pi * self.r
 
-    def square(self):
+    def _square(self):
         return math.pi * self.r ** 2
 
     def squareSurface(self):

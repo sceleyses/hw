@@ -11,7 +11,7 @@ class Rectangle(Figure):
     def perimeter(self):
         return 2 * (self.a + self.b)
 
-    def square(self):
+    def _square(self):
         return self.a * self.b
 
     def squareSurface(self):
