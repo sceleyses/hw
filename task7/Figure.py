@@ -1,21 +1,21 @@
 class Figure:
     def dimension(self):
-        return "Unknown"
+        pass
 
     def perimeter(self):
-        return None
+        pass
 
     def square(self):
-        return None
+        pass
 
     def squareSurface(self):
-        return None
+        pass
 
     def squareBase(self):
-        return None
+        pass
 
     def height(self):
-        return None
+        pass
 
     def volume(self):
         if self.dimension() == "2D":
