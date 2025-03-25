@@ -30,11 +30,11 @@ class Circle(Figure):
             f"Circle(r = {self.r}),  "
             f"Dimension: {self.dimension()}, "
             f"Perimeter: {self.perimeter():3.2f}, "
-            f"Square: {self.square():3.2f}, "
+            f"Square: {self.square()}, "
             f"SquareSurface: {self.squareSurface()}, "
             f"SqureBase: {self.squareBase()}, "
             f"Heigt: {self.height()}, "
-            f"Volume: {self.volume():3.2f}"
+            f"Volume: {self.volume()}"
         )
 
 if __name__ == "__main__":
