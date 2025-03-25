@@ -7,7 +7,6 @@ class Trapeze(Figure):
         self.b = b
         self.c = c
         self.d = d
-        self.height = (self.c**2 - ((self.a - self.b)/2)**2)**0.5
 
     def dimension(self):
         return "2D"
@@ -16,13 +15,31 @@ class Trapeze(Figure):
         return self.a + self.b + self.c + self.d
 
     def square(self):
-        return (self.a + self.b) * self.height / 2
+        return (self.a + self.b) * self.height() / 2
+
+    def squareSurface(self):
+        return None
+
+    def squareBase(self):
+        return None
+
+    def height(self):
+        return (self.c**2 - ((self.a - self.b)/2)**2)**0.5
+
+    def volume(self):
+        return super().volume()
+
 
     def __str__(self):
         return (
             f"Trapeze(a = {self.a}, b = {self.b}, c = {self.c}, d = {self.d}), "
-            f"Perimeter: {self.perimeter()}, "
-            f"Square: {self.square():.2f}"
+            f"Dimension: {self.dimension()}, "
+            f"Perimeter: {self.perimeter():3.2f}, "
+            f"Square: {self.square():3.2f}, "
+            f"SquareSurface: {self.squareSurface()}, "
+            f"SqureBase: {self.squareBase()}, "
+            f"Heigt: {self.height()}, "
+            f"Volume: {self.volume():3.2f}"
         )
 
 
