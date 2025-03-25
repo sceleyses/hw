@@ -8,21 +8,35 @@ class TriangularPrism(Triangle):
     def dimension(self):
         return "3D"
 
+    def perimeter(self):
+        return None
+
+    def square(self):
+        return None
+
     def squareSurface(self):
-        return self.perimeter() * self.h
+        return (super()._perimeter() * self.h)+ 2 * super()._square()
+
+    def squareBase(self):
+        return None
+
+    def height(self):
+        return self.h
 
     def volume(self):
-        return self.square() * self.h
+        return super()._square() * self.h
 
-    def totalSurfaceArea(self):
-        return self.squareSurface() + 2 * self.square()
 
     def __str__(self):
         return (
             f"TriangularPrism(a={self.a}, b={self.b}, c={self.c}, h={self.h}), "
-            f"Lateral Surface Area: {self.squareSurface():.2f}, "
-            f"Total Surface Area: {self.totalSurfaceArea():.2f}, "
-            f"Volume: {self.volume():.2f}"
+            f"Dimension: {self.dimension()}, "
+            f"Perimeter: {self.perimeter()}, "
+            f"Square: {self.square()}, "
+            f"SquareSurface: {self.squareSurface():3.2f}, "
+            f"SqureBase: {self.squareBase()}, "
+            f"Heigt: {self.height():3.2f}, "
+            f"Volume: {self.volume():3.2f}"
         )
 
 if __name__ == "__main__":

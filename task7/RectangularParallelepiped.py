@@ -8,6 +8,12 @@ class RectangularParallelepiped(Rectangle):
     def dimension(self):
         return "3D"
 
+    def perimeter(self):
+        return None
+
+    def square(self):
+        return None
+
     def squareSurface(self):
         return 2 * (
                 self.a * self.b +
@@ -15,15 +21,25 @@ class RectangularParallelepiped(Rectangle):
                 self.b * self.depth
             )
 
+    def squareBase(self):
+        return None
+
+    def height(self):
+        return None
+
     def volume(self):
-        # Об'єм: довжина * ширина * висота
         return self.a * self.b * self.depth
 
     def __str__(self):
         return (
             f"RectangularParallelepiped(a = {self.a}, b = {self.b}, h = {self.depth}), "
-            f"Surface Area: {self.squareSurface():.2f}, "
-            f"Volume: {self.volume():.2f}"
+            f"Dimension: {self.dimension()}, "
+            f"Perimeter: {self.perimeter()}, "
+            f"Square: {self.square()}, "
+            f"SquareSurface: {self.squareSurface():3.2f}, "
+            f"SqureBase: {self.squareBase()}, "
+            f"Heigt: {self.height()}, "
+            f"Volume: {self.volume():3.2f}"
         )
 
 if __name__ == "__main__":
