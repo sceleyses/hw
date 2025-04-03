@@ -8,8 +8,11 @@ class Rational:
         new_d = self.d * other.d
         return Rational(new_n, new_d)
 
-    # def __sub__(self, other):
-    #
+    def __sub__(self, other):
+        new_n = self.n * other.d - other.n * self.d
+        new_d = self.d * other.d
+        return Rational(new_n, new_d)
+
     # def __mul__(self, other):
 
     def __str__(self):
@@ -18,4 +21,4 @@ class Rational:
 if __name__ == "__main__":
     r1 = Rational(5)
     r2 = Rational(3)
-    print(r1 + r2)
+    print(r1 - r2)
