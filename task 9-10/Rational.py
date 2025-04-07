@@ -19,6 +19,29 @@ class Rational:
         if self.d == 0:
             raise ValueError("На нуль ділити неможна!")
 
+        self.reduce()
+
+
+    def gcd(n, d):
+        if n < d:
+            n, d = d, n
+
+        while d > 0:
+            n, d = d, n % d
+
+        return n
+
+    def reduce(self):
+        if self.n == 0:
+            self.d = 1
+            return
+        common = Rational.gcd(abs(self.n), abs(self.d))
+        self.n = self.n // common
+        self.d = self.d // common
+        if self.d < 0:
+            self.n *= -1
+            self.d *= -1
+
     def __add__(self, other):
         new_n = self.n * other.d + other.n * self.d
         if self.d != other.d:
@@ -40,6 +63,22 @@ class Rational:
         new_d = self.d * other.d
         return Rational(new_n, new_d)
 
+    def __getitem__(self, key):
+        if key == 'n':
+            return self.n
+        if key == 'd':
+            return self.d
+        raise KeyError("Дозволені ключі: 'n' або 'd'")
+
+    def __setitem__(self, key, value):
+        if not isinstance(value, int):
+            raise TypeError("Значення має бути цілим числом")
+
+        temp = Rational(
+            value if key == 'n' else self.n,
+            value if key == 'd' else self.d
+        )
+        self.n, self.d = temp.n, temp.d
 
     def __str__(self):
             return f"{self.n}/{self.d}"
@@ -60,3 +99,10 @@ if __name__ == "__main__":
 
     # r6 = Rational("4/2", 5)
     # print(r6)
+
+    r = Rational(2, 4)
+    print(r)
+    r['n'] = 7
+    print(r)
+    r['d'] = 4
+    print(r)
