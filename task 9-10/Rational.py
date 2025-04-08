@@ -84,25 +84,76 @@ class Rational:
             return f"{self.n}/{self.d}"
 
 if __name__ == "__main__":
-    r1 = Rational(5)
-    r2 = Rational(5, 6)
-    print(r1 + r2)
+    # r1 = Rational(5)
+    # r2 = Rational(5, 6)
+    # print(r1 + r2)
+    #
+    # r3 = Rational("5/3")
+    # print(r3 + r3)
+    #
+    # r4 = Rational("10/2")
+    # print(r4 * r1)
+    #
+    # # r5 = Rational(3, 0)
+    # # print(r5)
+    #
+    # # r6 = Rational("4/2", 5)
+    # # print(r6)
+    #
+    # r = Rational(2, 4)
+    # print(r)
+    # r['n'] = 7
+    # print(r)
+    # r['d'] = 4
+    # print(r)
 
-    r3 = Rational("5/3")
-    print(r3 + r3)
+    def evaluate_expression(tokens):
+        processed = []
+        i = 0
+        while i < len(tokens):
+            current = tokens[i]
+            if isinstance(current, str) and current == '*':
+                left = processed.pop()
+                i += 1
+                right = tokens[i]
+                processed.append(left * right)
+            else:
+                processed.append(current)
+            i += 1
 
-    r4 = Rational("10/2")
-    print(r4 * r1)
+        result = processed[0]
+        i = 1
+        while i < len(processed):
+            op = processed[i]
+            right = processed[i + 1]
+            if op == '+':
+                result += right
+            elif op == '-':
+                result -= right
+            i += 2
+        return result
 
-    # r5 = Rational(3, 0)
-    # print(r5)
 
-    # r6 = Rational("4/2", 5)
-    # print(r6)
-
-    r = Rational(2, 4)
-    print(r)
-    r['n'] = 7
-    print(r)
-    r['d'] = 4
-    print(r)
+    try:
+        with open("inputRational.txt") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                tokens = line.split()
+                parsed = []
+                for token in tokens:
+                    if token in ('+', '-', '*'):
+                        parsed.append(token)
+                    else:
+                        if '/' in token:
+                            parsed.append(Rational(token))
+                        else:
+                            parsed.append(Rational(int(token)))
+                try:
+                    res = evaluate_expression(parsed)
+                    print(res)
+                except Exception as e:
+                    print(f"Помилка у виразі '{line}': {e}")
+    except FileNotFoundError:
+        print("Файл inputRational.txt не знайдено.")
