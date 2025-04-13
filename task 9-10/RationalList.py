@@ -12,6 +12,10 @@ class RationalList(list):
             return Rational(item)
         return item
 
+    def __iter__(self):
+        sorted_list = sorted(super().__iter__(), key=lambda x: (-x.d, -x.n))
+        return iter(sorted_list)
+
     def __setitem__(self, key, value):
         value = self.validate(value)
         super().__setitem__(key, value)
@@ -48,7 +52,6 @@ class RationalList(list):
             total += num
         return total
 
-
 def evaluate_expression(tokens):
     processed = []
     i = 0
@@ -78,26 +81,28 @@ if __name__ == "__main__":
     filenames = ["input01.txt", "input02.txt", "input03.txt"]
     outputnames = ["output01.txt", "output02.txt", "output03.txt"]
 
-    for filename in filenames:
-        for output in outputnames:
-            with open(filename) as f_in:
-                with open(output, "w") as f_out:
-                    f_out.write(f"{filename}:\n")
-                    for line in f_in:
-                        line = line.strip()
-                        if not line:
-                            continue
-                        tokens = line.split()
-                        rationals = []
-                        try:
-                            for token in tokens:
-                                if '/' in token:
-                                    rational = Rational(token)
-                                else:
-                                    rational = Rational(int(token))
-                                rationals.append(rational)
-                            r_list = RationalList(rationals)
-                            total = r_list.sum()
-                            f_out.write(f"{line} = {total}\n")
-                        except Exception as e:
-                            f_out.write(f"Помилка у виразі '{line}': {e}\n")
+    for i in range(len(filenames)):
+        input_file = filenames[i]
+        output_file = outputnames[i]
+
+        with open(input_file) as f_in:
+            with open(output_file, "w") as f_out:
+                f_out.write(f"{input_file}:\n")
+                for line in f_in:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    tokens = line.split()
+                    rationals = []
+                    try:
+                        for token in tokens:
+                            if '/' in token:
+                                rational = Rational(token)
+                            else:
+                                rational = Rational(int(token))
+                            rationals.append(rational)
+                        r_list = RationalList(rationals)
+                        total = r_list.sum()
+                        f_out.write(f"{line} = {total}\n")
+                    except Exception as e:
+                        f_out.write(f"Помилка у виразі '{line}': {e}\n")
