@@ -1,13 +1,14 @@
-def L(k):
+def L():
     Ln = 2
-    yield Ln, 0
+    n = 0
+    yield Ln, n
 
-    for n in range(1, k+1):
+    while True:
+        n += 1
         Ln = 4 * n + 2 + 1 / (Ln + 1)
 
         yield Ln, n
 
 if __name__ == '__main__':
-    k = int(input("k = "))
-    for elem, num in L(k):
+    for elem, num in L():
         print(f"x({num}) = {elem}")
