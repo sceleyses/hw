@@ -1,15 +1,13 @@
 class Rational:
-    def __init__(self,numerator, denominator=1 ):
+    def __init__(self, numerator, denominator=1):
         if isinstance(numerator, str):
             parts = numerator.split('/')
-            if len(parts) == 2:
-                self.n = int(parts[0])
-                self.d = int(parts[1])
-            else:
-                raise ValueError("Неприпустимий формат!")
-
+            if len(parts) != 2:
+                raise ValueError("Неприпустимий формат рядка!")
+            self.n = int(parts[0])
+            self.d = int(parts[1])
             if denominator != 1:
-                raise ValueError("Неприпустиме значення!")
+                raise ValueError("Неприпустимі аргументи!")
         else:
             if not isinstance(numerator, int) or not isinstance(denominator, int):
                 raise TypeError("Чисельник та знаменник повинні бути цілими числами!")
@@ -21,47 +19,59 @@ class Rational:
 
         self.reduce()
 
-
-    def gcd(n, d):
-        if n < d:
-            n, d = d, n
-
-        while d > 0:
-            n, d = d, n % d
-
-        return n
+    @staticmethod
+    def gcd(a, b):
+        a, b = abs(a), abs(b)
+        while b:
+            a, b = b, a % b
+        return a
 
     def reduce(self):
-        if self.n == 0:
-            self.d = 1
-            return
-        common = Rational.gcd(abs(self.n), abs(self.d))
-        self.n = self.n // common
-        self.d = self.d // common
+        common = self.gcd(self.n, self.d)
+        self.n //= common
+        self.d //= common
         if self.d < 0:
             self.n *= -1
             self.d *= -1
 
     def __add__(self, other):
+        if isinstance(other, int):
+            other = Rational(other)
+        if not isinstance(other, Rational):
+            return NotImplemented
         new_n = self.n * other.d + other.n * self.d
-        if self.d != other.d:
-            new_d = self.d * other.d
-        else:
-            new_d = self.d
+        new_d = self.d * other.d
         return Rational(new_n, new_d)
 
     def __sub__(self, other):
+        if isinstance(other, int):
+            other = Rational(other)
+        if not isinstance(other, Rational):
+            return NotImplemented
         new_n = self.n * other.d - other.n * self.d
-        if self.d != other.d:
-            new_d = self.d * other.d
-        else:
-            new_d = self.d
+        new_d = self.d * other.d
         return Rational(new_n, new_d)
 
     def __mul__(self, other):
+        if isinstance(other, int):
+            other = Rational(other)
+        if not isinstance(other, Rational):
+            return NotImplemented
         new_n = self.n * other.n
         new_d = self.d * other.d
         return Rational(new_n, new_d)
+
+    def __radd__(self, other):
+        return self.__add__(other)
+
+    def __rsub__(self, other):
+        return Rational(other) - self
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
+
+    def __call__(self):
+        return self.n / self.d
 
     def __getitem__(self, key):
         if key == 'n':
@@ -71,17 +81,22 @@ class Rational:
         raise KeyError("Дозволені ключі: 'n' або 'd'")
 
     def __setitem__(self, key, value):
+        if key not in ('n', 'd'):
+            raise KeyError("Дозволені ключі: 'n' або 'd'")
         if not isinstance(value, int):
             raise TypeError("Значення має бути цілим числом")
-
-        temp = Rational(
-            value if key == 'n' else self.n,
-            value if key == 'd' else self.d
-        )
+        if key == 'd' and value == 0:
+            raise ValueError("Знаменник не може бути нулем")
+        temp = Rational(self.n, self.d)
+        if key == 'n':
+            temp.n = value
+        else:
+            temp.d = value
+        temp.reduce()
         self.n, self.d = temp.n, temp.d
 
     def __str__(self):
-            return f"{self.n}/{self.d}"
+        return f"{self.n}/{self.d}"
 
 if __name__ == "__main__":
     # r1 = Rational(5)
