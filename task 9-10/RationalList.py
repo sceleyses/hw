@@ -1,108 +1,53 @@
 from Rational import Rational
+
 class RationalList(list):
-    def __init__(self, iterable):
-        for item in iterable:
-            self.validate(item)
-        super().__init__(iterable)
+    def __init__(self, iterable=None):
+        if iterable is not None:
+            iterable = self._validate(iterable)
+            super().__init__(iterable)
+        else:
+            super().__init__()
 
-    def validate(self, item):
-        if not isinstance(item, (Rational, int)):
-            raise TypeError("Елементи повинні бути типу Rational або int")
-        if isinstance(item, int):
-            return Rational(item)
-        return item
-
-    def __iter__(self):
-        sorted_list = sorted(super().__iter__(), key=lambda x: (-x.d, -x.n))
-        return iter(sorted_list)
-
-    def __setitem__(self, key, value):
-        value = self.validate(value)
-        super().__setitem__(key, value)
+    def _validate(self, items):
+        for item in items:
+            if not isinstance(item, Rational):
+                raise ValueError("Елементи повинні бути типу Rational")
+        return items
 
     def append(self, item):
-        item = self.validate(item)
+        if not isinstance(item, Rational):
+            raise ValueError("Елементи повинні бути типу Rational")
         super().append(item)
 
-    def extend(self, other):
-        if isinstance(other, type(self)):
-            super().extend(other)
-        else:
-            for item in other:
-                self.append(item)
+    def extend(self, iterable):
+        iterable = self._validate(iterable)
+        super().extend(iterable)
 
-    def __add__(self, other):
-        if isinstance(other, type(self)):
-            return type(self)(super().__add__(other))
-        other = self.validate(other)
-        return type(self)(super().__add__([other]))
+    def insert(self, index, item):
+        if not isinstance(item, Rational):
+            raise ValueError("Елементи повинні бути типу Rational")
+        super().insert(index, item)
 
-    def __iadd__(self, other):
-        if isinstance(other, (type(self), list)):
-            self.extend(other)
-        else:
-            self.append(other)
-        return self
+    def __setitem__(self, index, item):
+        if not isinstance(item, Rational):
+            raise ValueError("Елементи повинні бути типу Rational")
+        super().__setitem__(index, item)
 
-    def sum(self):
-        total = Rational(0)
-        for num in self:
-            if isinstance(num, int):
-                num = Rational(num)
-            total += num
-        return total
+    def __str__(self):
+        return '[' + ', '.join(str(item) for item in self) + ']'
 
-def evaluate_expression(tokens):
-    processed = []
-    i = 0
-    while i < len(tokens):
-        current = tokens[i]
-        if current == '*':
-            left = processed.pop()
-            i += 1
-            right = tokens[i]
-            processed.append(left * right)
-        else:
-            processed.append(current)
-        i += 1
+if __name__ == '__main__':
+    r1 = Rational(1, 6)
+    r2 = Rational(2, 6)
 
-    result = processed[0]
-    for i in range(1, len(processed), 2):
-        op = processed[i]
-        right = processed[i+1]
-        if op == '+':
-            result += right
-        elif op == '-':
-            result -= right
-    return result
+    RList = RationalList([r1, r2])
+    print(RList)
 
+    RList.append(Rational(3, 6))
+    print(RList)
 
-if __name__ == "__main__":
-    filenames = ["input01.txt", "input02.txt", "input03.txt"]
-    outputnames = ["output01.txt", "output02.txt", "output03.txt"]
+    RList[0] = Rational(4, 6)
+    print(RList)
 
-    for i in range(len(filenames)):
-        input_file = filenames[i]
-        output_file = outputnames[i]
-
-        with open(input_file) as f_in:
-            with open(output_file, "w") as f_out:
-                f_out.write(f"{input_file}:\n")
-                for line in f_in:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    tokens = line.split()
-                    rationals = []
-                    try:
-                        for token in tokens:
-                            if '/' in token:
-                                rational = Rational(token)
-                            else:
-                                rational = Rational(int(token))
-                            rationals.append(rational)
-                        r_list = RationalList(rationals)
-                        total = r_list.sum()
-                        f_out.write(f"{line} = {total}\n")
-                    except Exception as e:
-                        f_out.write(f"Помилка у виразі '{line}': {e}\n")
+    RList.extend([Rational(5, 6)])
+    print(RList)
