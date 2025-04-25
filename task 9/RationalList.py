@@ -9,13 +9,19 @@ class RationalList(list):
             super().__init__()
 
     def _validate(self, items):
+        if not isinstance(items, (list, RationalList)):
+            items = [items]
+
         for item in items:
-            if not isinstance(item, Rational):
+            if not isinstance(item, (Rational, int)):
                 raise ValueError("Елементи повинні бути типу Rational")
+
+            if isinstance(item, int):
+                return Rational(item)
         return items
 
     def append(self, item):
-        if not isinstance(item, Rational):
+        if not isinstance(item, (Rational, int)):
             raise ValueError("Елементи повинні бути типу Rational")
         super().append(item)
 
@@ -36,6 +42,21 @@ class RationalList(list):
     def __len__(self):
         return super().__len__()
 
+
+    def __add__(self, other):
+        if isinstance(other, (Rational)):
+            other = self._validate(other)
+            return RationalList(super().__add__(other))
+
+        if isinstance(other, (int)):
+            other = self._validate(Rational(other))
+            return RationalList(super().__add__(other))
+
+        if isinstance(other, (RationalList)):
+            other = self._validate(other)
+            return RationalList(super().__add__(other))
+
+
     def __str__(self):
         return f"[{', '.join(str(item) for item in self)}]"
 
@@ -47,14 +68,20 @@ if __name__ == '__main__':
     print(RList)
     print(len(RList))
 
-    RList.append(Rational(3, 6))
-    print(RList)
-    print(len(RList))
+    # RList.append(Rational(3, 6))
+    # print(RList)
+    # print(len(RList))
+    #
+    # RList[0] = Rational(4, 6)
+    # print(RList)
+    # print(len(RList))
+    #
+    # RList.extend([Rational(5, 6)])
+    # print(RList)
+    # print(len(RList))
 
-    RList[0] = Rational(4, 6)
-    print(RList)
-    print(len(RList))
-
-    RList.extend([Rational(5, 6)])
-    print(RList)
-    print(len(RList))
+    add1 = RList + RList
+    add2 = RList + r1
+    add3 = RList + 2
+    print(add1, add2, add3)
+    print(len(add1))
