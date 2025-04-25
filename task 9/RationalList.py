@@ -12,18 +12,21 @@ class RationalList(list):
         if not isinstance(items, (list, RationalList)):
             items = [items]
 
+        validated = []
         for item in items:
-            if not isinstance(item, (Rational, int)):
-                raise ValueError("Елементи повинні бути типу Rational")
-
             if isinstance(item, int):
-                return Rational(item)
-        return items
+                validated.append(Rational(item, 1))
+            elif isinstance(item, Rational):
+                validated.append(item)
+            else:
+                raise ValueError("Елементи повинні бути типу Rational або int")
+            return validated
 
     def append(self, item):
         if not isinstance(item, (Rational, int)):
             raise ValueError("Елементи повинні бути типу Rational")
         super().append(item)
+
 
     def extend(self, iterable):
         iterable = self._validate(iterable)
@@ -56,6 +59,17 @@ class RationalList(list):
             other = self._validate(other)
             return RationalList(super().__add__(other))
 
+    def __iadd__(self, other):
+        if isinstance(other, str):
+            raise TypeError("Елементи повинні бути типу Rational, int або RationalList")
+
+        try:
+            iter(other)
+        except TypeError:
+            self.append(other)
+        else:
+            self.extend(other)
+        return self
 
     def __str__(self):
         return f"[{', '.join(str(item) for item in self)}]"
@@ -66,7 +80,7 @@ if __name__ == '__main__':
 
     RList = RationalList([r1, r2])
     print(RList)
-    print(len(RList))
+    # print(len(RList))
 
     # RList.append(Rational(3, 6))
     # print(RList)
@@ -80,9 +94,27 @@ if __name__ == '__main__':
     # print(RList)
     # print(len(RList))
 
-    add1 = RList + RList
-    add2 = RList + r1
-    add3 = RList + 2
-    print(add1, add2, add3)
-    print(len(add1))
+    # add1 = RList + RList
+    # add2 = RList + r1
+    # add3 = RList + 2
+    # print(add1, add2, add3)
+    # print(len(add1))
+
+    lst = RationalList([r1])
+    lst += r2
+    print(lst)
+
+    lst = RationalList([r1])
+    lst += r2
+    print(lst)
+
+    lst += 5
+    print(lst)
+
+    lst += [Rational(5, 6), 2]
+    print(lst)
+
+    # lst += "text"
+    lst += [1, "text"]
+    print(lst)
 
