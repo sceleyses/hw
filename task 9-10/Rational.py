@@ -15,7 +15,7 @@ class Rational:
             self.d = denominator
 
         if self.d == 0:
-            raise ValueError("На нуль ділити неможна!")
+            raise ZeroDivisionError("На нуль ділити неможна!")
 
         self.reduce()
 
@@ -86,7 +86,7 @@ class Rational:
         if not isinstance(value, int):
             raise TypeError("Значення має бути цілим числом")
         if key == 'd' and value == 0:
-            raise ValueError("Знаменник не може бути нулем")
+            raise ZeroDivisionError("Знаменник не може бути нулем")
         temp = Rational(self.n, self.d)
         if key == 'n':
             temp.n = value
