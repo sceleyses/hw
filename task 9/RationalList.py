@@ -79,9 +79,10 @@ class RationalList(list):
 
 
 # if __name__ == '__main__':
-
-   # r1 = Rational(1, 6)
+#
+#     r1 = Rational(0, 6)
 #     r2 = Rational(2, 6)
+#     print(r1, r2)
 #
 #     RList = RationalList([r1, r2])
 #     print(RList)
