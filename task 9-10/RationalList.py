@@ -33,8 +33,11 @@ class RationalList(list):
             raise ValueError("Елементи повинні бути типу Rational")
         super().__setitem__(index, item)
 
+    def __len__(self):
+        return super().__len__()
+
     def __str__(self):
-        return '[' + ', '.join(str(item) for item in self) + ']'
+        return f"[{', '.join(str(item) for item in self)}]"
 
 if __name__ == '__main__':
     r1 = Rational(1, 6)
@@ -42,12 +45,16 @@ if __name__ == '__main__':
 
     RList = RationalList([r1, r2])
     print(RList)
+    print(len(RList))
 
     RList.append(Rational(3, 6))
     print(RList)
+    print(len(RList))
 
     RList[0] = Rational(4, 6)
     print(RList)
+    print(len(RList))
 
     RList.extend([Rational(5, 6)])
     print(RList)
+    print(len(RList))
