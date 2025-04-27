@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
                         # Обчислюємо вираз
                         result = evaluate_expression(parsed_tokens)
-                        f_out.write(f"{result}\n")
+                        f_out.write(f"{line} = {result}\n")
 
                     except Exception as e:
                         f_out.write(f"Помилка у виразі '{line}': {e}\n")
