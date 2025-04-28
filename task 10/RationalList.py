@@ -1,4 +1,4 @@
-from Rational import Rational
+from task9.Rational import Rational
 
 class RationalList(list):
     def __init__(self, iterable=None):
