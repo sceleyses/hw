@@ -92,8 +92,6 @@ if __name__ == "__main__":
     r_list.append(Rational(3))
     r_list.append(Rational(1))
 
-    print("До сортування:", r_list)
+    print(r_list)
 
-    r_list.sort_descending()
-    print("Після сортування:", r_list)  # [2/1, 3/2, 1/2] (спадання знаменників, потім чисельників)
 

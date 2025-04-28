@@ -5,6 +5,11 @@ from Rational import Rational
 from RationalList import RationalList
 
 def evaluate_expression(tokens):
+    # Якщо немає операторів, повертаємо перший токен як результат
+    if not any(token in ('+', '-', '*') for token in tokens):
+        return tokens[0] if tokens else None
+
+    # Обробка виразу з операторами
     processed = []
     i = 0
     while i < len(tokens):
@@ -21,6 +26,8 @@ def evaluate_expression(tokens):
     result = processed[0]
     i = 1
     while i < len(processed):
+        if i + 1 >= len(processed):  # Додано перевірку меж
+            break
         op = processed[i]
         right = processed[i + 1]
         if op == '+':
@@ -29,7 +36,6 @@ def evaluate_expression(tokens):
             result -= right
         i += 2
     return result
-
 if __name__ == "__main__":
     filenames = ["input01.txt", "input02.txt", "input03.txt"]
     outputnames = ["output01.txt", "output02.txt", "output03.txt"]
