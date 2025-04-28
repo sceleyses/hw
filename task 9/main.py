@@ -2,7 +2,13 @@
 from RationalList import RationalList
 
 
+
 def evaluate_expression(tokens):
+    # Якщо немає операторів, повертаємо перший токен як результат
+    if not any(token in ('+', '-', '*') for token in tokens):
+        return tokens[0] if tokens else None
+
+    # Обробка виразу з операторами
     processed = []
     i = 0
     while i < len(tokens):
@@ -19,6 +25,8 @@ def evaluate_expression(tokens):
     result = processed[0]
     i = 1
     while i < len(processed):
+        if i + 1 >= len(processed):  # Додано перевірку меж
+            break
         op = processed[i]
         right = processed[i + 1]
         if op == '+':

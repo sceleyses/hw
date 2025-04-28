@@ -15,7 +15,7 @@ class Rational:
             self.n = numerator
             self.d = denominator
 
-        if self.d == 0 or self.n == 0:
+        if self.d == 0:
             raise ZeroDivisionError("На нуль ділити неможна!")
 
         self.reduce()
